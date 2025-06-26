@@ -109,7 +109,7 @@ const DeviceManager = () => {
   const onlineCount = devices.filter(d => d.online).length;
 
   return (
-    <div className="flex flex-col h-screen p-4 overflow-hidden">
+    <div className="flex flex-col h-screen p-4 overflow-hidden bg-[#010a1c]">
       {/* 70% - 30% Left/Right Layout */}
       <div className="flex flex-1 gap-4 overflow-hidden">
         <div className="w-[70%] overflow-auto">
