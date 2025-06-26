@@ -89,7 +89,7 @@ const DeviceDetails = ({ device }) => {
       {/* Admin Access Section */}
       <div className="space-y-4 mb-8">
         <h3 className="text-lg font-medium text-gray-700">Admin Access</h3>
-        <div className="grid grid-cols-1 gap-4">
+        {/* <div className="grid grid-cols-1 gap-4">
           <EditableField 
             label="Username" 
             value={editableFields.username}
@@ -102,11 +102,11 @@ const DeviceDetails = ({ device }) => {
             onChange={(val) => handleFieldChange('password', val)}
             type="password"
           />
-        </div>
+        </div> */}
         <div className="flex gap-3 pt-2">
-          <Button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">
+          {/* <Button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">
             IP-Changes
-          </Button>
+          </Button> */}
            <Button className="bg-purple-100 hover:bg-purple-200 px-4 py-2">Web</Button>
           <Button className="bg-yellow-100 hover:bg-yellow-200 px-4 py-2">Reboot</Button>
           <Button className="bg-red-100 hover:bg-red-200 px-4 py-2">Reset Config</Button>
