@@ -94,54 +94,7 @@ const DeviceManager = () => {
       date: '2025-06-08',
       location:'India'
     }
-    ,
-    {
-      id: 6,
-      ip: '192.168.0.173',
-      port: '34567',
-      description: 'Elevator Camera',
-      mac: '00:1A:2B:3C:4D:5E',
-      cloudId: 'g78hi90j12kl',
-      online: true,
-      subnet: '255.255.255.0',
-      gateway: '192.168.0.1',
-      httpPort: '80',
-      version: '02.12174907.00014.140600.0000000',
-      date: '2025-06-08',
-      location:'India'
-    }
-    ,
-    {
-      id: 6,
-      ip: '192.168.0.173',
-      port: '34567',
-      description: 'Elevator Camera',
-      mac: '00:1A:2B:3C:4D:5E',
-      cloudId: 'g78hi90j12kl',
-      online: true,
-      subnet: '255.255.255.0',
-      gateway: '192.168.0.1',
-      httpPort: '80',
-      version: '02.12174907.00014.140600.0000000',
-      date: '2025-06-08',
-      location:'India'
-    }
-    ,
-    {
-      id: 6,
-      ip: '192.168.0.173',
-      port: '34567',
-      description: 'Elevator Camera',
-      mac: '00:1A:2B:3C:4D:5E',
-      cloudId: 'g78hi90j12kl',
-      online: true,
-      subnet: '255.255.255.0',
-      gateway: '192.168.0.1',
-      httpPort: '80',
-      version: '02.12174907.00014.140600.0000000',
-      date: '2025-06-08',
-      location:'India'
-    }
+    
   ]);
 
   const [selectedDevice, setSelectedDevice] = useState(null);
