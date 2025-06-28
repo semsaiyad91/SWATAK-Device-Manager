@@ -95,6 +95,11 @@ const DeviceManager = () => {
       location:'India'
     }
     
+    
+    
+
+    
+    
   ]);
 
   const [selectedDevice, setSelectedDevice] = useState(null);

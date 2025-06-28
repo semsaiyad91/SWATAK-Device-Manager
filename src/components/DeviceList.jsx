@@ -4,6 +4,7 @@ import Input from './UI/Input';
 
 const DeviceList = ({ devices, searchTerm, onSearchChange, onSelectDevice, onlineCount }) => {
   const [selectedDevices, setSelectedDevices] = useState([]);
+  const [activeRowId, setActiveRowId] = useState(null);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -27,6 +28,8 @@ const DeviceList = ({ devices, searchTerm, onSearchChange, onSelectDevice, onlin
     if (isLoggedIn) {
       setIsLoggedIn(false);
       onSelectDevice(null);
+      setActiveRowId(null);
+      setSelectedDevices([]);
       if (!remember) {
         localStorage.removeItem('remember_username');
         localStorage.removeItem('remember_password');
@@ -58,20 +61,10 @@ const DeviceList = ({ devices, searchTerm, onSearchChange, onSelectDevice, onlin
     }
   };
 
-  const toggleDeviceSelection = (deviceId) => {
-    setSelectedDevices((prevSelected) => {
-      if (prevSelected.includes(deviceId)) {
-        return prevSelected.filter((id) => id !== deviceId);
-      } else {
-        return [...prevSelected, deviceId];
-      }
-    });
-  };
-
   return (
-    <div className="border rounded-lg p-4 flex flex-col h-full bg-transparent w-full">
-     {/* search  deavice input */}
+    <div className="border rounded-lg p-4 flex flex-col h-[973px] bg-transparent w-full">
 
+      {/* Search + Login */}
       <div className="mb-4 flex items-center justify-between">
         <div className="w-72">
           <Input
@@ -83,8 +76,6 @@ const DeviceList = ({ devices, searchTerm, onSearchChange, onSelectDevice, onlin
           />
         </div>
 
- {/* Login + Search + Count */}
-      
         <div>
           <input
             type="text"
@@ -108,7 +99,7 @@ const DeviceList = ({ devices, searchTerm, onSearchChange, onSelectDevice, onlin
 
           <button
             onClick={handleLoginLogout}
-            className="bg-transparent text-white px-3 py-1 rounded mr-2 mt-2 hover:bg-red-600 border"
+            className="bg-transparent text-white px-3 py-1 rounded mr-2 mt-2 hover:bg-red-600 hover:border-red-600 border"
           >
             {isLoggedIn ? 'Logout' : 'Login'}
           </button>
@@ -124,10 +115,8 @@ const DeviceList = ({ devices, searchTerm, onSearchChange, onSelectDevice, onlin
           <label htmlFor="remember" className='text-white'>Remember Password</label>
         </div>
 
-        
-
         <div className="flex items-center gap-4">
-          <div className=" px-4 py-2 rounded-lg text-sm font-medium text-green-600">
+          <div className="px-4 py-2 rounded-lg text-sm font-medium text-green-600">
             Online Devices: {onlineCount}
           </div>
           <div className="flex flex-wrap gap-3 justify-start">
@@ -139,7 +128,7 @@ const DeviceList = ({ devices, searchTerm, onSearchChange, onSelectDevice, onlin
       </div>
 
       {/* Device Table */}
-      <div className="overflow-y-auto max-h-[900px]">
+      <div className="overflow-y-auto h-[700px]">
         <table className="w-full border">
           <thead>
             <tr className="bg-white text-gray-600 sticky top-0">
@@ -158,12 +147,12 @@ const DeviceList = ({ devices, searchTerm, onSearchChange, onSelectDevice, onlin
                   checked={selectedDevices.length === devices.length && devices.length > 0}
                 />
               </th>
-              <th className="border ">IP Address</th>
+              <th className="border">IP Address</th>
               <th className="border min-w-[70px]">Port</th>
               <th className="border min-w-[165px]">MAC Address</th>
               <th className="border min-w-[150px]">Device-ID</th>
               <th className="border min-w-[180px]">Version info</th>
-              <th className="border  min-w-[100px]">TCP port</th>
+              <th className="border min-w-[100px]">TCP port</th>
               <th className="border min-w-[50px]">Release Date</th>
               <th className="border min-w-[50px]">HTTP-Port</th>
               <th className="border min-w-[50px]">Location</th>
@@ -171,48 +160,62 @@ const DeviceList = ({ devices, searchTerm, onSearchChange, onSelectDevice, onlin
           </thead>
           <tbody>
             {devices.map((device) => {
-              const isSelected = selectedDevices.includes(device.id);
+              const isChecked = selectedDevices.includes(device.id);
+              const isActive = activeRowId === device.id;
 
               return (
                 <tr
                   key={device.id}
-                  className={`border cursor-pointer  ${
-                    device.online ? ' bg-transparent text-white  text-center hover:bg-red-600'  : 'bg-red-50'
+                  className={`border cursor-pointer text-center ${
+                    isActive
+                      ? 'bg-red-600 text-white'
+                      : device.online
+                      ? 'bg-transparent text-white hover:bg-red-600'
+                      : 'bg-red-50'
                   }`}
-                  onClick={() => {
+                  onClick={(e) => {
                     if (!isLoggedIn) return;
-                    toggleDeviceSelection(device.id);
+
+                    if (e.target.type === 'checkbox') return;
+
+                    setActiveRowId(device.id);
+                    setSelectedDevices([device.id]);
                     onSelectDevice(device);
                   }}
                 >
                   <td className="border p-3 text-center">
                     <input
                       type="checkbox"
-                      checked={isSelected}
+                      checked={isChecked}
                       onChange={(e) => {
                         if (!isLoggedIn) return;
                         e.stopPropagation();
-                        toggleDeviceSelection(device.id);
+
+                        setSelectedDevices((prev) =>
+                          prev.includes(device.id)
+                            ? prev.filter((id) => id !== device.id)
+                            : [...prev, device.id]
+                        );
+
                         onSelectDevice(device);
                       }}
                     />
                   </td>
-                  <td className="border ">{device.ip}</td>
-                  <td className="border  text-center">{device.port}</td>
-                  <td className="border ">{device.description}</td>
-                  <td className="border ">{device.mac}</td>
-                  <td className="border ">{device.cloudId}</td>
-                  <td className="border ">{device.version}</td>
-                  <td className="border ">{device.date}</td>
-                  <td className="border ">{device.httpPort}</td>
-                  <td className="border ">{device.location}</td>
+                  <td className="border">{device.ip}</td>
+                  <td className="border">{device.port}</td>
+                  <td className="border">{device.description}</td>
+                  <td className="border">{device.mac}</td>
+                  <td className="border">{device.cloudId}</td>
+                  <td className="border">{device.version}</td>
+                  <td className="border">{device.date}</td>
+                  <td className="border">{device.httpPort}</td>
+                  <td className="border">{device.location}</td>
                 </tr>
               );
             })}
           </tbody>
         </table>
       </div>
-
       {/* Firmware Upgrade Section */}
       <div className="border-t border-gray-200 pt-3 pb-2 mt-2 shrink-0 ">
         <h3 className="text-lg font-medium text-white mb-2">Firmware Upgrade</h3>
@@ -224,13 +227,13 @@ const DeviceList = ({ devices, searchTerm, onSearchChange, onSelectDevice, onlin
                 className="flex-1 p-2 border rounded-lg bg-transparent text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Select firmware file"
               />
-              <Button className="bg-transparent text-white hover:bg-red-600  px-4 py-2 rounded-lg">
+              <Button className="bg-transparent text-white hover:bg-red-600 hover:border-red-600 px-4 py-2 rounded-lg">
                 Browse
               </Button>
             </div>
           </div>
           <div className="flex items-end">
-            <Button className="bg-transparent text-white hover:bg-red-600 px-4 py-2 rounded-lg font-medium">
+            <Button className="bg-transparent text-white hover:bg-red-600 hover:border-red-600 px-4 py-2 rounded-lg font-medium">
               Upgrade
             </Button>
           </div>
@@ -239,5 +242,4 @@ const DeviceList = ({ devices, searchTerm, onSearchChange, onSelectDevice, onlin
     </div>
   );
 };
-
 export default DeviceList;

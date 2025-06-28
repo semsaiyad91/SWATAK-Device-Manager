@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html, body {
+  overflow-x: hidden; /* horizontal scroll hatao */
+  overflow-y: auto;   /* vertical scroll sirf zarurat par ho */
+}
