@@ -104,7 +104,7 @@ const DeviceDetails = ({ device }) => {
         {/* Submit Button below editable fields */}
         <div>
           <Button 
-            className="mt-2 bg-transparent hover:bg-red-600 hover:border-red-600 text-white px-4 py-2 rounded-md"
+            className="mt-2 btnbgChange rounded-md"
             onClick={handleSubmit}
           >
             Submit Changes
@@ -128,9 +128,9 @@ const DeviceDetails = ({ device }) => {
       <div className="space-y-4 mb-8">
         <h3 className="text-lg font-medium text-white">Admin Access</h3>
         <div className="flex gap-3 pt-2">
-          <Button className="bg-transparent text-white hover:bg-red-600 hover:border-red-600 px-4 py-2">Web</Button>
-          <Button className="bg-transparent text-white hover:bg-red-600 hover:border-red-600 px-4 py-2">Reboot</Button>
-          <Button className="bg-transparent text-white hover:bg-red-600 hover:border-red-600 px-4 py-2">Reset Config</Button>
+          <Button className="btnbgChange">Web</Button>
+          <Button className="btnbgChange">Reboot</Button>
+          <Button className="btnbgChange">Reset Config</Button>
         </div> text-white
       </div>
 

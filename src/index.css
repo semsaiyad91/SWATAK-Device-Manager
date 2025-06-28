@@ -6,3 +6,7 @@ html, body {
   overflow-x: hidden; /* horizontal scroll hatao */
   overflow-y: auto;   /* vertical scroll sirf zarurat par ho */
 }
+
+.btnbgChange{
+  @apply bg-transparent text-white hover:bg-red-600 hover:border-red-600 px-4 py-2
+}
