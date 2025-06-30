@@ -69,16 +69,16 @@ const DeviceDetails = ({ device }) => {
     // TODO: Add actual update logic here as per your requirements
   };
 
-  if (!device) {
+   if (!device) {
     return (
-      <div className="container md:w-1/2 bg-transparent rounded-xl shadow-sm p-4 flex flex-col border border-gray-200 h-fit ">
-        <p className="text-white text-lg ">Select a device to view details</p>
+      <div className="container md:w-full bg-transparent rounded-xl shadow-sm p-4 flex flex-col border border-gray-200 h-fit">
+        <p className="text-white text-lg">Select a device to view details</p>
       </div>
     );
   }
 
   return (
-    <div className="rounded-xl shadow-sm p-6 flex flex-col border border-black-400 w-[500px] bg-transparent">
+    <div className="rounded-xl shadow-sm p-6 flex flex-col border border-black-400 w-full bg-transparent">
       {/* Network Configuration Section */}
       <div className="space-y-5 mb-4">
         <div>

@@ -116,8 +116,8 @@ const DeviceManager = () => {
   return (
     <div className="flex flex-col h-screen p-4 overflow-hidden bg-[#010a1c]">
       {/* 70% - 30% Left/Right Layout */}
-      <div className="flex flex-1 gap-4 overflow-hidden">
-        <div className="w-[70%] overflow-auto">
+      <div className="flex flex-1 gap-4 overflow-hidden flex-col lg:flex-row">
+        <div className="w-full lg:w-[70%] overflow-auto">
           <DeviceList
             devices={filteredDevices}
             searchTerm={searchTerm}
@@ -127,12 +127,13 @@ const DeviceManager = () => {
           />
         </div>
 
-        <div className="w-[30%] h-screen overflow-hidden  ">
+        <div className="w-full lg:w-[30%] h-auto lg:h-screen overflow-hidden">
           <DeviceDetails device={selectedDevice} />
         </div>
       </div>
     </div>
   );
 };
+
 
 export default DeviceManager;

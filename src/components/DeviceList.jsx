@@ -63,63 +63,76 @@ const DeviceList = ({ devices, searchTerm, onSearchChange, onSelectDevice, onlin
 
   return (
     <div className="border rounded-lg p-4 flex flex-col h-[973px] bg-transparent w-full">
-
-      {/* Search + Login */}
-      <div className="mb-4 flex items-center justify-between">
-        <div className="w-72">
-          <Input
-            type="text"
-            placeholder="Search devices..."
-            value={searchTerm}
-            onChange={(e) => onSearchChange(e.target.value)}
-            className="bg-transparent text-white p-2 border rounded"
-          />
-        </div>
-
-        <div>
-          <input
-            type="text"
-            placeholder="Username"
-            className="border rounded-lg mr-2 px-2 py-1 bg-transparent text-white"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            disabled={isLoggedIn}
-          />
-          {usernameError && <p className="text-red-600 text-sm mt-1">{usernameError}</p>}
-
-          <input
-            type="password"
-            placeholder="Password"
-            className="border rounded-lg mr-2 px-2 py-1 bg-transparent text-white"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            disabled={isLoggedIn}
-          />
-          {passwordError && <p className="text-red-600 text-sm mt-1">{passwordError}</p>}
-
-          <button
-            onClick={handleLoginLogout}
-            className="btnbgChange px-3 py-1 rounded mr-2 mt-2 border"
-          >
-            {isLoggedIn ? 'Logout' : 'Login'}
-          </button>
-
-          <input
-            type="checkbox"
-            id="remember"
-            className="mr-1"
-            checked={remember}
-            onChange={(e) => setRemember(e.target.checked)}
-            disabled={isLoggedIn}
-          />
-          <label htmlFor="remember" className='text-white'>Remember Password</label>
-        </div>
-
-        <div className="flex items-center gap-4">
-          <div className="px-4 py-2 rounded-lg text-sm font-medium text-green-600">
-            Online Devices: {onlineCount}
+      {/* Search + Login Section - Responsive only below 1200px */}
+      <div className="mb-4">
+        <div className="xl:flex xl:items-center xl:justify-between">
+          {/* Search Input (Left) */}
+          <div className="xl:w-72 mb-4 xl:mb-0">
+            <Input
+              type="text"
+              placeholder="Search devices..."
+              value={searchTerm}
+              onChange={(e) => onSearchChange(e.target.value)}
+              className="bg-transparent text-white p-2 border rounded w-full"
+            />
           </div>
-          <div className="flex flex-wrap gap-3 justify-start">
+
+          {/* Login Form (Middle) */}
+          <div className="xl:flex xl:items-center xl:gap-4 mb-4 xl:mb-0">
+            <div className="flex flex-col xl:flex-row gap-2 xl:items-center">
+              <div className="flex flex-col xl:flex-row gap-2">
+                <div className="flex flex-col">
+                  <input
+                    type="text"
+                    placeholder="Username"
+                    className="border rounded-lg px-2 py-1 bg-transparent text-white w-full xl:w-auto"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    disabled={isLoggedIn}
+                  />
+                  {usernameError && <p className="text-red-600 text-sm mt-1">{usernameError}</p>}
+                </div>
+                <div className="flex flex-col">
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    className="border rounded-lg px-2 py-1 bg-transparent text-white w-full xl:w-auto"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    disabled={isLoggedIn}
+                  />
+                  {passwordError && <p className="text-red-600 text-sm mt-1">{passwordError}</p>}
+                </div>
+              </div>
+              
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handleLoginLogout}
+                  className="btnbgChange px-3 py-1 rounded border w-full xl:w-auto"
+                >
+                  {isLoggedIn ? 'Logout' : 'Login'}
+                </button>
+                
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="remember"
+                    className="mr-1"
+                    checked={remember}
+                    onChange={(e) => setRemember(e.target.checked)}
+                    disabled={isLoggedIn}
+                  />
+                  <label htmlFor="remember" className='text-white text-sm whitespace-nowrap'>Remember</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Online Count + Refresh (Right) */}
+          <div className="flex items-center gap-4 justify-between xl:justify-end">
+            <div className="px-4 py-2 rounded-lg text-sm font-medium text-green-600 whitespace-nowrap">
+              Online Devices: {onlineCount}
+            </div>
             <Button className="bg-transparent hover:bg-gray-800 px-4 py-2 text-white">
               <i className="fa-solid fa-rotate"></i>
             </Button>
@@ -216,24 +229,25 @@ const DeviceList = ({ devices, searchTerm, onSearchChange, onSelectDevice, onlin
           </tbody>
         </table>
       </div>
+
       {/* Firmware Upgrade Section */}
-      <div className="border-t border-gray-200 pt-3 pb-2 mt-2 shrink-0 ">
+      <div className="border-t border-gray-200 pt-3 pb-2 mt-2 shrink-0">
         <h3 className="text-lg font-medium text-white mb-2">Firmware Upgrade</h3>
-        <div className="grid grid-cols-3 gap-4">
-          <div className="col-span-2">
-            <div className="flex gap-2">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
+          <div className="xl:col-span-2">
+            <div className="flex flex-col xl:flex-row gap-2">
               <input
                 type="text"
                 className="flex-1 p-2 border rounded-lg bg-transparent text-white focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Select firmware file"
               />
-              <Button className="btnbgChange  rounded-lg">
+              <Button className="btnbgChange rounded-lg w-full xl:w-auto">
                 Browse
               </Button>
             </div>
           </div>
           <div className="flex items-end">
-            <Button className="btnbgChange  rounded-lg font-medium">
+            <Button className="btnbgChange rounded-lg font-medium w-full xl:w-auto">
               Upgrade
             </Button>
           </div>
@@ -242,4 +256,5 @@ const DeviceList = ({ devices, searchTerm, onSearchChange, onSelectDevice, onlin
     </div>
   );
 };
+
 export default DeviceList;
